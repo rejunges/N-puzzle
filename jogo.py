@@ -12,15 +12,34 @@ def initial_config(dimension):
 
 	return m
 
-#def move_up():
+def move_up(m):
+	i, j = np.where(m == 0)
+	if (i!=0):
+		m[i,j] = m[i-1,j]
+		m[i-1,j] = 0
+	return m
 
-
-#def move_down():
-	#Verify if it is possible 
+def move_down(m):
+	i, j = np.where(m == 0)
+	if (i!=dimension-1):
+		m[i,j] = m[i+1,j]
+		m[i+1,j] = 0
+	return m
 	
-#def move_left():
+def move_left(m):
+	i, j = np.where(m == 0)
+	if (j!=0):
+		m[i,j] = m[i,j-1]
+		m[i,j-1] = 0
+	return m
 
-#def move_right():
+def move_right(m):
+	i, j = np.where(m == 0)
+	if (j!=dimension-1):
+		m[i,j] = m[i,j+1]
+		m[i,j+1] = 0
+	return m
+
 
 #Le a dimensao (nxn) do jogo
 ap = argparse.ArgumentParser()
@@ -30,4 +49,3 @@ dimension = int(args["dimensao"])
 
 
 m = initial_config(dimension)
-print(m)
