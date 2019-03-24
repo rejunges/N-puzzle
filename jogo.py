@@ -75,6 +75,61 @@ class Game:
 	def verify_node(self, actual_node):
 		return np.array_equal(actual_node, self.final_board)
 
+	#Busca em profundidade com recursão
+	"""
+	def DFS(self, node, nivel):
+		
+		if self.verify_node(node.value):
+			return node
+			
+		node_up = self.move_up(node.value.copy())
+		node_down = self.move_down(node.value.copy())
+		node_right = self.move_right(node.value.copy())
+		node_left = self.move_left(node.value.copy())
+		
+		if (not np.array_equal(node_up, node.value)):
+			node.insert_up(node_up, node, node.nivel+1)
+			self.DFS(node.up, node.nivel+1)
+		if (not np.array_equal(node_down, node.value)):
+			node.insert_down(node_down, node, node.nivel+1)
+			self.DFS(node.down, node.nivel+1)
+		if (not np.array_equal(node_right, node.value)):
+			node.insert_right(node_right, node, node.nivel+1)
+			self.DFS(node.right, node.nivel+1)
+		if (not np.array_equal(node_left, node.value)):
+			node.insert_left(node_left, node, node.nivel+1)
+			self.DFS(node.left, node.nivel+1)
+	"""	
+	
+	def DFS(self, node, nivel):
+		
+		to_visit = [node]
+
+		while to_visit:
+			node = to_visit.pop(0)
+
+			if self.verify_node(node.value):
+				return node
+
+			node_up = self.move_up(node.value.copy())
+			node_down = self.move_down(node.value.copy())
+			node_right = self.move_right(node.value.copy())
+			node_left = self.move_left(node.value.copy())
+			
+			if (not np.array_equal(node_up, node.value)):
+				node.insert_up(node_up, node, node.nivel+1)
+				to_visit.insert(0, node.up)
+			if (not np.array_equal(node_down, node.value)):
+				node.insert_down(node_down, node, node.nivel+1)
+				to_visit.insert(0, node.down)
+			if (not np.array_equal(node_right, node.value)):
+				node.insert_right(node_right, node, node.nivel+1)
+				to_visit.insert(0, node.right)
+			if (not np.array_equal(node_left, node.value)):
+				node.insert_left(node_left, node, node.nivel+1)
+				to_visit.insert(0, node.left)
+		
+
 	#Busca em amplitude
 	def BFS(self, node, nivel):
 
@@ -103,9 +158,6 @@ class Game:
 				node.insert_left(node_left, node, node.nivel+1)
 				to_visit.append(node.left)
 			
-		return None	
-
-		 
 
 
 if __name__ == '__main__':
@@ -121,7 +173,17 @@ if __name__ == '__main__':
 	
 	print(game.board)
 	print()
+	board = game.board.copy()
 	root = Node(game.board)
+	print("BFS")
 	final = game.BFS(root,0)
+	print(final.nivel)
 	game.read_solution(final)
-	#print(root.print_tree())
+	print("DFS")
+	game.bord = board
+	root = Node(game.board)
+
+	final = game.DFS(root,0)
+	print(final.nivel)
+	game.read_solution(final)
+	
