@@ -100,7 +100,8 @@ class Game:
 			node.insert_left(node_left, node, node.nivel+1)
 			self.DFS(node.left, node.nivel+1)
 	"""	
-	
+
+	#Busca em profundidade
 	def DFS(self, node, nivel):
 		
 		to_visit = [node]
@@ -128,6 +129,36 @@ class Game:
 			if (not np.array_equal(node_left, node.value)):
 				node.insert_left(node_left, node, node.nivel+1)
 				to_visit.insert(0, node.left)
+
+	#Busca em profundidade limitada
+	def DFS_limited(self, node, nivel, nivel_limit):
+		
+		to_visit = [node]
+
+		while to_visit:
+			node = to_visit.pop(0)
+
+			if self.verify_node(node.value):
+				return node
+
+			if node.nivel < nivel_limit: 
+				node_up = self.move_up(node.value.copy())
+				node_down = self.move_down(node.value.copy())
+				node_right = self.move_right(node.value.copy())
+				node_left = self.move_left(node.value.copy())
+				
+				if (not np.array_equal(node_up, node.value)):
+					node.insert_up(node_up, node, node.nivel+1)
+					to_visit.insert(0, node.up)
+				if (not np.array_equal(node_down, node.value)):
+					node.insert_down(node_down, node, node.nivel+1)
+					to_visit.insert(0, node.down)
+				if (not np.array_equal(node_right, node.value)):
+					node.insert_right(node_right, node, node.nivel+1)
+					to_visit.insert(0, node.right)
+				if (not np.array_equal(node_left, node.value)):
+					node.insert_left(node_left, node, node.nivel+1)
+					to_visit.insert(0, node.left)
 		
 
 	#Busca em amplitude
@@ -183,7 +214,7 @@ if __name__ == '__main__':
 	game.bord = board
 	root = Node(game.board)
 
-	final = game.DFS(root,0)
+	final = game.DFS_limited(root,0, 5)
 	print(final.nivel)
 	game.read_solution(final)
 	
