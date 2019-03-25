@@ -131,7 +131,7 @@ class Game:
 				to_visit.insert(0, node.left)
 
 	#Busca em aprofundamento iterativo
-	def DF_iterative(self, node_root, nivel):
+	def IDDS(self, node_root, nivel):
 		
 		to_visit = [node_root]
 
@@ -160,7 +160,7 @@ class Game:
 					node.insert_left(node_left, node, node.nivel+1)
 					to_visit.insert(0, node.left)
 	
-		return self.DF_iterative(node_root, nivel + 1)
+		return self.IDDS(node_root, nivel + 1)
 
 
 	#Busca em amplitude
@@ -191,6 +191,22 @@ class Game:
 				node.insert_left(node_left, node, node.nivel+1)
 				to_visit.append(node.left)
 			
+	def out_of_place_heuristic(self, m):
+		#Heuritica que indica quantas peças estão fora de lugar
+		out_place = m == self.final_board #False where is out place
+		return np.size(out_place) - np.count_nonzero(out_place) #return the sum of False values
+
+	def manhattan_distance_heuristic(self, m):
+		distance = 0
+		
+		for i in range(0, dimension):
+			for j in range(0, dimension):
+				num = m[i,j]
+				if num != 0:
+					i_final, j_final = np.where(self.final_board == num)
+					distance += abs(i-i_final) + abs(j-j_final)
+			
+		return int(distance)
 
 
 if __name__ == '__main__':
@@ -206,6 +222,8 @@ if __name__ == '__main__':
 	print()
 	board = game.board.copy()
 	root = Node(game.board)
+	#print(game.out_of_place_heuristic(root.value))
+	print(game.manhattan_distance_heuristic(root.value))
 	print("BFS")
 	final = game.BFS(root,0)
 	print(final.nivel)
@@ -214,7 +232,7 @@ if __name__ == '__main__':
 	game.bord = board
 	root = Node(game.board)
 	print("DFI")
-	final_DFI = game.DF_iterative(root, 0)
+	final_DFI = game.IDDS(root, 0)
 	print(final_DFI.nivel)
 	game.read_solution(final_DFI)
 	
