@@ -89,16 +89,16 @@ class Game:
 		
 		if (not np.array_equal(node_up, node.value)):
 			node.insert_up(node_up, node, node.nivel+1)
-			self.DFS(node.up, node.nivel+1)
+			return self.DFS(node.up, node.nivel+1)
 		if (not np.array_equal(node_down, node.value)):
 			node.insert_down(node_down, node, node.nivel+1)
-			self.DFS(node.down, node.nivel+1)
+			return self.DFS(node.down, node.nivel+1)
 		if (not np.array_equal(node_right, node.value)):
 			node.insert_right(node_right, node, node.nivel+1)
-			self.DFS(node.right, node.nivel+1)
+			return self.DFS(node.right, node.nivel+1)
 		if (not np.array_equal(node_left, node.value)):
 			node.insert_left(node_left, node, node.nivel+1)
-			self.DFS(node.left, node.nivel+1)
+			return self.DFS(node.left, node.nivel+1)
 	"""	
 
 	#Busca em profundidade
@@ -130,18 +130,18 @@ class Game:
 				node.insert_left(node_left, node, node.nivel+1)
 				to_visit.insert(0, node.left)
 
-	#Busca em profundidade limitada
-	def DFS_limited(self, node, nivel, nivel_limit):
+	#Busca em aprofundamento iterativo
+	def DF_iterative(self, node_root, nivel):
 		
-		to_visit = [node]
+		to_visit = [node_root]
 
 		while to_visit:
 			node = to_visit.pop(0)
-
+		
 			if self.verify_node(node.value):
 				return node
 
-			if node.nivel < nivel_limit: 
+			if node.nivel < nivel: 
 				node_up = self.move_up(node.value.copy())
 				node_down = self.move_down(node.value.copy())
 				node_right = self.move_right(node.value.copy())
@@ -159,7 +159,9 @@ class Game:
 				if (not np.array_equal(node_left, node.value)):
 					node.insert_left(node_left, node, node.nivel+1)
 					to_visit.insert(0, node.left)
-		
+	
+		return self.DF_iterative(node_root, nivel + 1)
+
 
 	#Busca em amplitude
 	def BFS(self, node, nivel):
@@ -199,9 +201,7 @@ if __name__ == '__main__':
 	dimension = int(args["dimensao"])
 	game = Game(dimension)
 
-	#print("AAAAAA")
-	#game.board = np.matrix([[1, 2, 3], [4,5,6], [7,0,8]])
-	
+
 	print(game.board)
 	print()
 	board = game.board.copy()
@@ -213,8 +213,8 @@ if __name__ == '__main__':
 	print("DFS")
 	game.bord = board
 	root = Node(game.board)
-
-	final = game.DFS_limited(root,0, 5)
-	print(final.nivel)
-	game.read_solution(final)
+	print("DFI")
+	final_DFI = game.DF_iterative(root, 0)
+	print(final_DFI.nivel)
+	game.read_solution(final_DFI)
 	
