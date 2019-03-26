@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
 import operator
-from random import randint 
+import random 
 from node import Node
 
 class Game:
@@ -51,8 +51,9 @@ class Game:
 		return m
 
 	def shuffle(self, m):
+		random.seed(30)
 		for i in range(0,25):
-			func = randint(0,3)
+			func = random.randint(0,3)
 			if(func==0):
 				m = self.move_up(m)
 			elif(func==1):
@@ -70,37 +71,15 @@ class Game:
 			node = node.father
 		stack.append(node.value)
 
+		cont = 0
 		while stack:
+			print("Passo " + str(cont) + ":")
+			cont +=1
 			print(stack.pop())
+			print()
 		
 	def verify_node(self, actual_node):
 		return np.array_equal(actual_node, self.final_board)
-
-	#Busca em profundidade com recursão
-	"""
-	def DFS(self, node, level):
-		
-		if self.verify_node(node.value):
-			return node
-			
-		node_up = self.move_up(node.value.copy())
-		node_down = self.move_down(node.value.copy())
-		node_right = self.move_right(node.value.copy())
-		node_left = self.move_left(node.value.copy())
-		
-		if (not np.array_equal(node_up, node.value)):
-			node.insert_up(node_up, node, node.level+1)
-			return self.DFS(node.up, node.level+1)
-		if (not np.array_equal(node_down, node.value)):
-			node.insert_down(node_down, node, node.level+1)
-			return self.DFS(node.down, node.level+1)
-		if (not np.array_equal(node_right, node.value)):
-			node.insert_right(node_right, node, node.level+1)
-			return self.DFS(node.right, node.level+1)
-		if (not np.array_equal(node_left, node.value)):
-			node.insert_left(node_left, node, node.level+1)
-			return self.DFS(node.left, node.level+1)
-	"""	
 
 	#Busca em profundidade
 	def DFS(self, node, level):
@@ -121,12 +100,15 @@ class Game:
 			if (not np.array_equal(node_up, node.value)):
 				node.insert_up(node_up, node, node.level+1)
 				to_visit.insert(0, node.up)
+			
 			if (not np.array_equal(node_down, node.value)):
 				node.insert_down(node_down, node, node.level+1)
 				to_visit.insert(0, node.down)
+			
 			if (not np.array_equal(node_right, node.value)):
 				node.insert_right(node_right, node, node.level+1)
 				to_visit.insert(0, node.right)
+			
 			if (not np.array_equal(node_left, node.value)):
 				node.insert_left(node_left, node, node.level+1)
 				to_visit.insert(0, node.left)
@@ -151,12 +133,15 @@ class Game:
 				if (not np.array_equal(node_up, node.value)):
 					node.insert_up(node_up, node, node.level+1)
 					to_visit.insert(0, node.up)
+				
 				if (not np.array_equal(node_down, node.value)):
 					node.insert_down(node_down, node, node.level+1)
 					to_visit.insert(0, node.down)
+				
 				if (not np.array_equal(node_right, node.value)):
 					node.insert_right(node_right, node, node.level+1)
 					to_visit.insert(0, node.right)
+				
 				if (not np.array_equal(node_left, node.value)):
 					node.insert_left(node_left, node, node.level+1)
 					to_visit.insert(0, node.left)
@@ -168,6 +153,7 @@ class Game:
 	def BFS(self, node, level):
 
 		to_visit = [node]
+		
 		while to_visit:
 			node = to_visit.pop(0)
 			
@@ -192,11 +178,12 @@ class Game:
 				node.insert_left(node_left, node, node.level+1)
 				to_visit.append(node.left)
 			
+	#Heuritica que indica quantas peças estão fora de lugar
 	def out_of_place_heuristic(self, m):
-		#Heuritica que indica quantas peças estão fora de lugar
-		out_place = m == self.final_board #False where is out place
-		return np.size(out_place) - np.count_nonzero(out_place) #return the sum of False values
+		out_place = m == self.final_board 
+		return np.size(out_place) - np.count_nonzero(out_place) 
 
+	#Heuritica que indica a distancia de uma peça até seu devido lugar
 	def manhattan_distance_heuristic(self, m):
 		distance = 0
 		
@@ -209,8 +196,8 @@ class Game:
 			
 		return int(distance)
 	
+	#Heuristica 1 para peças fora do lugar e heurística 2 para distancia de manhattan
 	def calculate_heuristic(self, node, heuristic):
-		#Heuristica 1 para peças fora do lugar e heurística 2 para distancia de manhattan
 		if heuristic==1:
 			h = self.out_of_place_heuristic(node.value)
 		elif heuristic==2:
@@ -218,8 +205,8 @@ class Game:
 		
 		return h
 
+	#Heuristica 1 para peças fora do lugar e heurística 2 para distancia de manhattan
 	def A_star(self, node, level, heuristic=1):
-		#Heuristica 1 para peças fora do lugar e heurística 2 para distancia de manhattan
 		#g = node.level
 		#h = funcao heuristica
 		#f = g+h
@@ -243,14 +230,17 @@ class Game:
 					node.insert_up(node_up, node, node.level+1)
 					h = self.calculate_heuristic(node.up, heuristic)
 					open_nodes.append([node.up, node.level+1 + h])
+				
 				if (not np.array_equal(node_down, node.value)):
 					node.insert_down(node_down, node, node.level+1)
 					h = self.calculate_heuristic(node.down, heuristic)
 					open_nodes.append([node.down, node.level+1 + h])
+				
 				if (not np.array_equal(node_right, node.value)):
 					node.insert_right(node_right, node, node.level+1)
 					h = self.calculate_heuristic(node.right, heuristic)
 					open_nodes.append([node.right, node.level+1 + h])
+				
 				if (not np.array_equal(node_left, node.value)):
 					node.insert_left(node_left, node, node.level+1)
 					h = self.calculate_heuristic(node.left, heuristic)
@@ -261,40 +251,33 @@ class Game:
 if __name__ == '__main__':
 	#Le a dimensao (nxn) do jogo
 	ap = argparse.ArgumentParser()
-	ap.add_argument('-d', "--dimensao", required=True, help="Informe o valor da matriz quadrado para o jogo")
+	ap.add_argument('-d', "--dimensao", required=True, help="Informe o valor da matriz quadrada para o jogo")
+	ap.add_argument('-b', "--busca", required=True, help="Informe qual busca deseja realizar para o jogo. Valores: (1)BFS, (2)DFS, (3)IDDS, (4)A*-heuristica peças fora do lugar, (5)A*-heuristica distância de Manhattan")
 	args = vars(ap.parse_args())	
 	dimension = int(args["dimensao"])
+	search = int(args["busca"])
+
+	#Cria o jogo com a dimensão informada
 	game = Game(dimension)
+	root = Node(game.board) #Instacia o primeiro nodo
 
-
-	print(game.board)
-	print()
-	board = game.board.copy()
-	root = Node(game.board)
-	#print(game.out_of_place_heuristic(root.value))
-	print(game.manhattan_distance_heuristic(root.value))
-	print("BFS")
-	final = game.BFS(root,0)
-	print(final.level)
-	game.read_solution(final)
-	#print("DFS")
-	game.bord = board
-	root = Node(game.board)
-	print("DFI")
-	final_DFI = game.IDDS(root, 0)
-	print(final_DFI.level)
-	game.read_solution(final_DFI)
-	
-
-	print("A* - pecas fora do lugar")
-	game.bord = board
-	root = Node(game.board)
-	final = game.A_star(root, 1)
-	print(final.level)
-	game.read_solution(final)
-	print("A* - distancia")
-	game.bord = board
-	root = Node(game.board)
-	final = game.A_star(root, 2)
-	print(final.level)
-	game.read_solution(final)
+	if (search == 1):
+		print("BFS - Busca em amplitude")
+		final = game.BFS(root,0)
+		game.read_solution(final)
+	elif (search == 2):
+		print("DFS - Busca em profundidade")
+		final = game.DFS(root,0)
+		game.read_solution(final)
+	elif (search == 3):
+		print("IDDS - Busca em aprofundamento iterativo")
+		final = game.IDDS(root, 0)
+		game.read_solution(final)
+	elif (search == 4):
+		print("A* - Heurística número de peças fora do lugar")
+		final = game.A_star(root, 1)
+		game.read_solution(final)
+	elif (search == 5):
+		print("A* - Heurística distância de Manhattan")
+		final = game.A_star(root, 2)
+		game.read_solution(final)
