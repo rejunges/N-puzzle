@@ -52,7 +52,7 @@ class Game:
 
 	def shuffle(self, m):
 		random.seed(30)
-		for i in range(0,25):
+		for i in range(0,100):
 			func = random.randint(0,3)
 			if(func==0):
 				m = self.move_up(m)
@@ -64,7 +64,11 @@ class Game:
 				m = self.move_right(m)
 		return m
 
-	def read_solution(self, node):
+	def read_solution(self, node, total_nodes):
+		print("Total de nodos abertos: " + str(total_nodes))
+		print("Nível da solução encontrada: " + str(node.level))
+		print("Caminho para desembaralhar o tabuleiro:")
+		print()
 		stack = []
 		while node.father != None:
 			stack.append(node.value)
@@ -85,12 +89,12 @@ class Game:
 	def DFS(self, node, level):
 		
 		to_visit = [node]
-
+		total_nodes = 1
 		while to_visit:
 			node = to_visit.pop(0)
 
 			if self.verify_node(node.value):
-				return node
+				return node, total_nodes
 
 			node_up = self.move_up(node.value.copy())
 			node_down = self.move_down(node.value.copy())
@@ -100,29 +104,33 @@ class Game:
 			if (not np.array_equal(node_up, node.value)):
 				node.insert_up(node_up, node, node.level+1)
 				to_visit.insert(0, node.up)
+				total_nodes += 1
 			
 			if (not np.array_equal(node_down, node.value)):
 				node.insert_down(node_down, node, node.level+1)
 				to_visit.insert(0, node.down)
+				total_nodes += 1
 			
 			if (not np.array_equal(node_right, node.value)):
 				node.insert_right(node_right, node, node.level+1)
 				to_visit.insert(0, node.right)
+				total_nodes += 1
 			
 			if (not np.array_equal(node_left, node.value)):
 				node.insert_left(node_left, node, node.level+1)
 				to_visit.insert(0, node.left)
+				total_nodes += 1
 
 	#Busca em aprofundamento iterativo
-	def IDDS(self, node_root, level):
+	def IDDS(self, node_root, level, total = 1):
 		
 		to_visit = [node_root]
-
+		total_nodes = total
 		while to_visit:
 			node = to_visit.pop(0)
 		
 			if self.verify_node(node.value):
-				return node
+				return node, total_nodes
 
 			if node.level < level: 
 				node_up = self.move_up(node.value.copy())
@@ -133,32 +141,36 @@ class Game:
 				if (not np.array_equal(node_up, node.value)):
 					node.insert_up(node_up, node, node.level+1)
 					to_visit.insert(0, node.up)
+					total_nodes += 1
 				
 				if (not np.array_equal(node_down, node.value)):
 					node.insert_down(node_down, node, node.level+1)
 					to_visit.insert(0, node.down)
+					total_nodes += 1
 				
 				if (not np.array_equal(node_right, node.value)):
 					node.insert_right(node_right, node, node.level+1)
 					to_visit.insert(0, node.right)
+					total_nodes += 1
 				
 				if (not np.array_equal(node_left, node.value)):
 					node.insert_left(node_left, node, node.level+1)
 					to_visit.insert(0, node.left)
+					total_nodes += 1
 	
-		return self.IDDS(node_root, level + 1)
+		return self.IDDS(node_root, level + 1, total_nodes)
 
 
 	#Busca em amplitude
 	def BFS(self, node, level):
 
 		to_visit = [node]
-		
+		total_nodes = 1
 		while to_visit:
 			node = to_visit.pop(0)
 			
 			if self.verify_node(node.value):
-				return node
+				return node, total_nodes
 			
 			node_up = self.move_up(node.value.copy())
 			node_down = self.move_down(node.value.copy())
@@ -168,15 +180,20 @@ class Game:
 			if (not np.array_equal(node_up, node.value)):
 				node.insert_up(node_up, node, node.level+1)
 				to_visit.append(node.up)
+				total_nodes += 1
 			if (not np.array_equal(node_down, node.value)):
 				node.insert_down(node_down, node, node.level+1)
 				to_visit.append(node.down)
+				total_nodes += 1
 			if (not np.array_equal(node_right, node.value)):
 				node.insert_right(node_right, node, node.level+1)
 				to_visit.append(node.right)
+				total_nodes += 1
 			if (not np.array_equal(node_left, node.value)):
 				node.insert_left(node_left, node, node.level+1)
 				to_visit.append(node.left)
+				total_nodes += 1
+	
 			
 	#Heuritica que indica quantas peças estão fora de lugar
 	def out_of_place_heuristic(self, m):
@@ -211,13 +228,13 @@ class Game:
 		#h = funcao heuristica
 		#f = g+h
 		open_nodes = [[node, node.level + self.calculate_heuristic(node, heuristic)]]
-	
+		total_nodes = 1
 		while open_nodes:
 			open_nodes = sorted(open_nodes, key=operator.itemgetter(1)) #order by f_score
 			node, f_score = open_nodes.pop(0) 
 			
 			if self.verify_node(node.value):
-				return node
+				return node, total_nodes
 			
 			#Esse if verifica se os nodos já estão abertos
 			if node.up == None and node.down == None and node.right == None and node.left == None: 
@@ -230,21 +247,25 @@ class Game:
 					node.insert_up(node_up, node, node.level+1)
 					h = self.calculate_heuristic(node.up, heuristic)
 					open_nodes.append([node.up, node.level+1 + h])
+					total_nodes += 1
 				
 				if (not np.array_equal(node_down, node.value)):
 					node.insert_down(node_down, node, node.level+1)
 					h = self.calculate_heuristic(node.down, heuristic)
 					open_nodes.append([node.down, node.level+1 + h])
+					total_nodes += 1
 				
 				if (not np.array_equal(node_right, node.value)):
 					node.insert_right(node_right, node, node.level+1)
 					h = self.calculate_heuristic(node.right, heuristic)
 					open_nodes.append([node.right, node.level+1 + h])
+					total_nodes += 1
 				
 				if (not np.array_equal(node_left, node.value)):
 					node.insert_left(node_left, node, node.level+1)
 					h = self.calculate_heuristic(node.left, heuristic)
 					open_nodes.append([node.left, node.level+1 + h])
+					total_nodes += 1
 				
 			
 
@@ -263,21 +284,21 @@ if __name__ == '__main__':
 
 	if (search == 1):
 		print("BFS - Busca em amplitude")
-		final = game.BFS(root,0)
-		game.read_solution(final)
+		final, total_nodes = game.BFS(root,0)
+		game.read_solution(final, total_nodes)
 	elif (search == 2):
 		print("DFS - Busca em profundidade")
-		final = game.DFS(root,0)
-		game.read_solution(final)
+		final, total_nodes = game.DFS(root,0)
+		game.read_solution(final, total_nodes)
 	elif (search == 3):
 		print("IDDS - Busca em aprofundamento iterativo")
-		final = game.IDDS(root, 0)
-		game.read_solution(final)
+		final, total_nodes = game.IDDS(root, 0)
+		game.read_solution(final, total_nodes)
 	elif (search == 4):
 		print("A* - Heurística número de peças fora do lugar")
-		final = game.A_star(root, 1)
-		game.read_solution(final)
+		final, total_nodes = game.A_star(root, 1)
+		game.read_solution(final, total_nodes)
 	elif (search == 5):
 		print("A* - Heurística distância de Manhattan")
-		final = game.A_star(root, 2)
-		game.read_solution(final)
+		final, total_nodes = game.A_star(root, 2)
+		game.read_solution(final, total_nodes)
