@@ -51,7 +51,8 @@ class Game:
 		return m
 
 	def shuffle(self, m):
-		random.seed(30)
+		random.seed(seed)
+		
 		for i in range(0,100):
 			func = random.randint(0,3)
 			if(func==0):
@@ -166,9 +167,10 @@ class Game:
 
 		to_visit = [node]
 		total_nodes = 1
+
 		while to_visit:
 			node = to_visit.pop(0)
-			
+
 			if self.verify_node(node.value):
 				return node, total_nodes
 			
@@ -227,6 +229,7 @@ class Game:
 		#g = node.level
 		#h = funcao heuristica
 		#f = g+h
+
 		open_nodes = [[node, node.level + self.calculate_heuristic(node, heuristic)]]
 		total_nodes = 1
 		while open_nodes:
@@ -274,9 +277,11 @@ if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
 	ap.add_argument('-d', "--dimensao", required=True, help="Informe o valor da matriz quadrada para o jogo")
 	ap.add_argument('-b', "--busca", required=True, help="Informe qual busca deseja realizar para o jogo. Valores: (1)BFS, (2)DFS, (3)IDDS, (4)A*-heuristica peças fora do lugar, (5)A*-heuristica distância de Manhattan")
+	ap.add_argument('-s', "--semente", required=False, default = 20, help="Semente para shuffle")
 	args = vars(ap.parse_args())	
 	dimension = int(args["dimensao"])
 	search = int(args["busca"])
+	seed = int(args["semente"])
 
 	#Cria o jogo com a dimensão informada
 	game = Game(dimension)
@@ -296,9 +301,9 @@ if __name__ == '__main__':
 		game.read_solution(final, total_nodes)
 	elif (search == 4):
 		print("A* - Heurística número de peças fora do lugar")
-		final, total_nodes = game.A_star(root, 1)
+		final, total_nodes = game.A_star(root, 0, 1)
 		game.read_solution(final, total_nodes)
 	elif (search == 5):
 		print("A* - Heurística distância de Manhattan")
-		final, total_nodes = game.A_star(root, 2)
+		final, total_nodes = game.A_star(root, 0, 2)
 		game.read_solution(final, total_nodes)
