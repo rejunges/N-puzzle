@@ -2,6 +2,8 @@ import argparse
 import numpy as np
 import operator
 import random 
+import time
+import sys
 from node import Node
 
 class Game:
@@ -10,6 +12,7 @@ class Game:
 		self.final_board = self.initial_config(dimension)
 		self.dimension = dimension
 		self.board = self.shuffle(self.final_board.copy())
+		self.start_time = time.time()
 
 	def initial_config(self, dimension):
 		line = []
@@ -68,6 +71,14 @@ class Game:
 	def read_solution(self, node, total_nodes):
 		print("Total de nodos abertos: " + str(total_nodes))
 		print("Nível da solução encontrada: " + str(node.level))
+		hour, minutes, seconds = 0, 0, 0
+		end_time = time.time() - self.start_time
+		hour = end_time // 3600
+		end_time %= 3600
+		minutes = end_time // 60
+		end_time %= 60
+		seconds = end_time
+		print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.2f segundos" % seconds)
 		print("Caminho para desembaralhar o tabuleiro:")
 		print()
 		stack = []
@@ -83,6 +94,22 @@ class Game:
 			print(stack.pop())
 			print()
 		
+	def acceptable_runtime(self, total_nodes, level):
+		
+		if time.time()-self.start_time >= 3600:
+			print("Total de nodos abertos: " + str(total_nodes))
+			print("Parou no nível e não encontrou solução: " + str(level))
+			hour, minutes, seconds = 0, 0, 0
+			end_time = time.time() - self.start_time
+			hour = end_time // 3600
+			end_time %= 3600
+			minutes = end_time // 60
+			end_time %= 60
+			seconds = end_time
+			print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.2f segundos" % seconds)
+			return False
+		return True
+	
 	def verify_node(self, actual_node):
 		return np.array_equal(actual_node, self.final_board)
 
@@ -96,6 +123,8 @@ class Game:
 
 			if self.verify_node(node.value):
 				return node, total_nodes
+			if not self.acceptable_runtime(total_nodes, node.level):
+				sys.exit()
 
 			node_up = self.move_up(node.value.copy())
 			node_down = self.move_down(node.value.copy())
@@ -132,6 +161,8 @@ class Game:
 		
 			if self.verify_node(node.value):
 				return node, total_nodes
+			if not self.acceptable_runtime(total_nodes, node.level):
+				sys.exit()
 
 			if node.level < level: 
 				node_up = self.move_up(node.value.copy())
@@ -173,6 +204,8 @@ class Game:
 
 			if self.verify_node(node.value):
 				return node, total_nodes
+			if not self.acceptable_runtime(total_nodes, node.level):
+				sys.exit()
 			
 			node_up = self.move_up(node.value.copy())
 			node_down = self.move_down(node.value.copy())
@@ -238,6 +271,8 @@ class Game:
 			
 			if self.verify_node(node.value):
 				return node, total_nodes
+			if not self.acceptable_runtime(total_nodes, node.level):
+				sys.exit()
 			
 			#Esse if verifica se os nodos já estão abertos
 			if node.up == None and node.down == None and node.right == None and node.left == None: 
