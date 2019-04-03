@@ -55,8 +55,7 @@ class Game:
 
 	def shuffle(self, m):
 		random.seed(seed)
-		
-		for i in range(0,100):
+		for i in range(0,num_shuffle):
 			func = random.randint(0,3)
 			if(func==0):
 				m = self.move_up(m)
@@ -113,46 +112,64 @@ class Game:
 	def verify_node(self, actual_node):
 		return np.array_equal(actual_node, self.final_board)
 
+
 	#Busca em profundidade
 	def DFS(self, node, level):
 		
 		to_visit = [node]
+		visited = [node.value]
 		total_nodes = 1
+
+		def matrix_in_list(node, list_nodes):
+			for n in list_nodes:
+				if np.array_equal(node, n):
+					return True
+			return False
+
 		while to_visit:
 			node = to_visit.pop(0)
 
 			if self.verify_node(node.value):
+
 				return node, total_nodes
 			if not self.acceptable_runtime(total_nodes, node.level):
 				sys.exit()
-
+			#print(node.value)
 			node_up = self.move_up(node.value.copy())
 			node_down = self.move_down(node.value.copy())
 			node_right = self.move_right(node.value.copy())
 			node_left = self.move_left(node.value.copy())
 			
-			if (not np.array_equal(node_up, node.value)):
+			if (not np.array_equal(node_up, node.value) and not matrix_in_list(node_up, visited)):
+			#	print("UP")
 				node.insert_up(node_up, node, node.level+1)
 				to_visit.insert(0, node.up)
+				visited.append(node_up)
 				total_nodes += 1
 			
-			if (not np.array_equal(node_down, node.value)):
+			if (not np.array_equal(node_down, node.value) and not matrix_in_list(node_down, visited)):
+			#	print("DOWN")
 				node.insert_down(node_down, node, node.level+1)
 				to_visit.insert(0, node.down)
+				visited.append(node_down)
 				total_nodes += 1
 			
-			if (not np.array_equal(node_right, node.value)):
+			if (not np.array_equal(node_right, node.value) and not matrix_in_list(node_right, visited)):
+			#	print("RIGHT")
 				node.insert_right(node_right, node, node.level+1)
 				to_visit.insert(0, node.right)
+				visited.append(node_right)
 				total_nodes += 1
 			
-			if (not np.array_equal(node_left, node.value)):
+			if (not np.array_equal(node_left, node.value) and not matrix_in_list(node_left, visited)):
+			#	print("LEFT")
 				node.insert_left(node_left, node, node.level+1)
 				to_visit.insert(0, node.left)
+				visited.append(node_left)
 				total_nodes += 1
 
 	#Busca em aprofundamento iterativo
-	def IDDS(self, node_root, level, total = 1):
+	def IDS(self, node_root, level, total = 1):
 		
 		to_visit = [node_root]
 		total_nodes = total
@@ -190,7 +207,7 @@ class Game:
 					to_visit.insert(0, node.left)
 					total_nodes += 1
 	
-		return self.IDDS(node_root, level + 1, total_nodes)
+		return self.IDS(node_root, level + 1, total_nodes)
 
 
 	#Busca em amplitude
@@ -311,12 +328,14 @@ if __name__ == '__main__':
 	#Le a dimensao (nxn) do jogo
 	ap = argparse.ArgumentParser()
 	ap.add_argument('-d', "--dimensao", required=True, help="Informe o valor da matriz quadrada para o jogo")
-	ap.add_argument('-b', "--busca", required=True, help="Informe qual busca deseja realizar para o jogo. Valores: (1)BFS, (2)DFS, (3)IDDS, (4)A*-heuristica peças fora do lugar, (5)A*-heuristica distância de Manhattan")
+	ap.add_argument('-b', "--busca", required=True, help="Informe qual busca deseja realizar para o jogo. Valores: (1)BFS, (2)DFS, (3)IDS, (4)A*-heuristica peças fora do lugar, (5)A*-heuristica distância de Manhattan")
 	ap.add_argument('-s', "--semente", required=False, default = 20, help="Semente para shuffle")
+	ap.add_argument('-e', "--embaralhamento", required=False, default = 100, help="Número de embaralhamento na matriz")
 	args = vars(ap.parse_args())	
 	dimension = int(args["dimensao"])
 	search = int(args["busca"])
 	seed = int(args["semente"])
+	num_shuffle = int(args["embaralhamento"])
 
 	#Cria o jogo com a dimensão informada
 	game = Game(dimension)
@@ -331,8 +350,8 @@ if __name__ == '__main__':
 		final, total_nodes = game.DFS(root,0)
 		game.read_solution(final, total_nodes)
 	elif (search == 3):
-		print("IDDS - Busca em aprofundamento iterativo")
-		final, total_nodes = game.IDDS(root, 0)
+		print("IDS - Busca em aprofundamento iterativo")
+		final, total_nodes = game.IDS(root, 0)
 		game.read_solution(final, total_nodes)
 	elif (search == 4):
 		print("A* - Heurística número de peças fora do lugar")
