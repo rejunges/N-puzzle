@@ -178,63 +178,63 @@ class Game:
 		
 		to_visit = [node_root]
 		total_nodes = 1
-		visited = []
-
+		visited = {}
+		c =[]
 
 		def clean_visited(visited):
 			for node in visited:
 				del node
 
-		def clean_sibling_branch(node_sibling):
-			nodes = [node_sibling]
-			for n in nodes:
-				if node_sibling.up != None:
-					nodes.append(node.up)
-				if node_sibling.down != None:
-					nodes.append(node.down)
-				if node_sibling.right != None:
-					nodes.append(node.right)
-				if node_sibling.left != None:
-					nodes.append(node.left)
-				del n
+		def clean_sibling_branch(visited, level):
+			v_items = visited.copy()
+			for key, value in v_items.items():
+				if key >= level:
+					for nodes in value:
+						del nodes
+					visited.pop(key, None)
+			return visited
 
 		while True:
 			print("Iteracao: " + str(level))
-			ant = None
+			
 			while to_visit:
 				node = to_visit.pop(0)
-				visited.append(node)
+				c.append(node.value)
+				visited = clean_sibling_branch(visited, node.level)
+				if node.level not in visited:
+					visited[node.level] = []
+				visited[node.level].append(node)
 				
 				if self.verify_node(node.value):
 					return node, total_nodes
 				if not self.acceptable_runtime(total_nodes, node.level):
 					sys.exit()
 				
-				if ant != None and ant.level == node.level:
-					clean_sibling_branch(ant)
-
 				if node.level < level:
 					self.create_next_level_tree(node)
-					if (node.up != None):
+					if (node.up != None and not self.matrix_in_list(node.up.value, c)):
 						to_visit.insert(0, node.up)
 						total_nodes += 1
-					
-					if (node.down != None):
+
+					if (node.down != None and not self.matrix_in_list(node.down.value, c)):
 						to_visit.insert(0, node.down)
 						total_nodes += 1
-						
-					if (node.right != None):
+
+					if (node.right != None and not self.matrix_in_list(node.right.value, c)):
 						to_visit.insert(0, node.right)
 						total_nodes += 1
-					 
-					if (node.left != None):
+
+					if (node.left != None and not self.matrix_in_list(node.left.value, c)):
 						to_visit.insert(0, node.left)
 						total_nodes += 1
-				ant = node
-			clean_visited(visited)
+			v = []
+			for key, nodes in visited.items():
+				v.extend(nodes)
+			clean_visited(v)
 			to_visit = [node_root]
 			level +=1
-			visited = [node_root]
+			visited = {}
+			c=[]
 	
 	#Busca em amplitude
 	def BFS(self, node, level):
