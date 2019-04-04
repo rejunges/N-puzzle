@@ -1,88 +1,7 @@
 BFS - Busca em amplitude
-Total de nodos abertos: 5331451
-Nível da solução encontrada: 14
-Tempo de execução: 0 horas, 54 minutos e 1.81 segundos
-Caminho para desembaralhar o tabuleiro:
-
-Passo 0:
-[[0 7 2]
- [4 1 3]
- [8 6 5]]
-
-Passo 1:
-[[7 0 2]
- [4 1 3]
- [8 6 5]]
-
-Passo 2:
-[[7 1 2]
- [4 0 3]
- [8 6 5]]
-
-Passo 3:
-[[7 1 2]
- [0 4 3]
- [8 6 5]]
-
-Passo 4:
-[[0 1 2]
- [7 4 3]
- [8 6 5]]
-
-Passo 5:
-[[1 0 2]
- [7 4 3]
- [8 6 5]]
-
-Passo 6:
-[[1 2 0]
- [7 4 3]
- [8 6 5]]
-
-Passo 7:
-[[1 2 3]
- [7 4 0]
- [8 6 5]]
-
-Passo 8:
-[[1 2 3]
- [7 4 5]
- [8 6 0]]
-
-Passo 9:
-[[1 2 3]
- [7 4 5]
- [8 0 6]]
-
-Passo 10:
-[[1 2 3]
- [7 4 5]
- [0 8 6]]
-
-Passo 11:
-[[1 2 3]
- [0 4 5]
- [7 8 6]]
-
-Passo 12:
-[[1 2 3]
- [4 0 5]
- [7 8 6]]
-
-Passo 13:
-[[1 2 3]
- [4 5 0]
- [7 8 6]]
-
-Passo 14:
-[[1 2 3]
- [4 5 6]
- [7 8 0]]
-
-BFS - Busca em amplitude
-Total de nodos abertos: 25078
+Total de nodos abertos: 543
 Nível da solução encontrada: 9
-Tempo de execução: 0 horas, 0 minutos e 1.09 segundos
+Tempo de execução: 0 horas, 0 minutos e 1.0788 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -136,9 +55,9 @@ Passo 9:
  [7 8 0]]
 
 BFS - Busca em amplitude
-Total de nodos abertos: 257216
+Total de nodos abertos: 1553
 Nível da solução encontrada: 11
-Tempo de execução: 0 horas, 0 minutos e 12.83 segundos
+Tempo de execução: 0 horas, 0 minutos e 8.8917 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -201,22 +120,10 @@ Passo 11:
  [4 5 6]
  [7 8 0]]
 
-DFS - Busca em profundidade
-Total de nodos abertos: 3161006
-Parou no nível e não encontrou solução: 1264402
-Tempo de execução: 1 horas, 0 minutos e 0.01 segundos
-DFS - Busca em profundidade
-Total de nodos abertos: 2995787
-Parou no nível e não encontrou solução: 855939
-Tempo de execução: 1 horas, 0 minutos e 0.00 segundos
-DFS - Busca em profundidade
-Total de nodos abertos: 2975207
-Parou no nível e não encontrou solução: 850059
-Tempo de execução: 1 horas, 0 minutos e 0.01 segundos
-IDDS - Busca em aprofundamento iterativo
-Total de nodos abertos: 2003747
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 1120796
 Nível da solução encontrada: 14
-Tempo de execução: 0 horas, 1 minutos e 39.39 segundos
+Tempo de execução: 0 horas, 1 minutos e 5.0699 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -294,10 +201,10 @@ Passo 14:
  [4 5 6]
  [7 8 0]]
 
-IDDS - Busca em aprofundamento iterativo
-Total de nodos abertos: 25120
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 12883
 Nível da solução encontrada: 9
-Tempo de execução: 0 horas, 0 minutos e 1.19 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.7234 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -350,10 +257,10 @@ Passo 9:
  [4 5 6]
  [7 8 0]]
 
-IDDS - Busca em aprofundamento iterativo
-Total de nodos abertos: 168659
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 88427
 Nível da solução encontrada: 11
-Tempo de execução: 0 horas, 0 minutos e 8.09 segundos
+Tempo de execução: 0 horas, 0 minutos e 5.1537 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -419,7 +326,7 @@ Passo 11:
 A* - Heurística número de peças fora do lugar
 Total de nodos abertos: 8576
 Nível da solução encontrada: 14
-Tempo de execução: 0 horas, 0 minutos e 1.02 segundos
+Tempo de execução: 0 horas, 0 minutos e 1.3390 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -500,7 +407,7 @@ Passo 14:
 A* - Heurística número de peças fora do lugar
 Total de nodos abertos: 127
 Nível da solução encontrada: 9
-Tempo de execução: 0 horas, 0 minutos e 0.01 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.0076 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -556,7 +463,7 @@ Passo 9:
 A* - Heurística número de peças fora do lugar
 Total de nodos abertos: 1305
 Nível da solução encontrada: 11
-Tempo de execução: 0 horas, 0 minutos e 0.08 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.0858 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -622,7 +529,7 @@ Passo 11:
 A* - Heurística distância de Manhattan
 Total de nodos abertos: 382
 Nível da solução encontrada: 14
-Tempo de execução: 0 horas, 0 minutos e 0.06 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.0624 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -703,7 +610,7 @@ Passo 14:
 A* - Heurística distância de Manhattan
 Total de nodos abertos: 26
 Nível da solução encontrada: 9
-Tempo de execução: 0 horas, 0 minutos e 0.00 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.0043 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:
@@ -759,7 +666,7 @@ Passo 9:
 A* - Heurística distância de Manhattan
 Total de nodos abertos: 229
 Nível da solução encontrada: 11
-Tempo de execução: 0 horas, 0 minutos e 0.04 segundos
+Tempo de execução: 0 horas, 0 minutos e 0.0365 segundos
 Caminho para desembaralhar o tabuleiro:
 
 Passo 0:

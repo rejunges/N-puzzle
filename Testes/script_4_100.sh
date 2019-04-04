@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ..
 python game.py -d 4 -b 1 -s 15
 python game.py -d 4 -b 1 -s 20
 python game.py -d 4 -b 1 -s 30

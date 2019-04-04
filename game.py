@@ -67,9 +67,7 @@ class Game:
 				m = self.move_right(m)
 		return m
 
-	def read_solution(self, node, total_nodes):
-		print("Total de nodos abertos: " + str(total_nodes))
-		print("Nível da solução encontrada: " + str(node.level))
+	def format_time(self):
 		hour, minutes, seconds = 0, 0, 0
 		end_time = time.time() - self.start_time
 		hour = end_time // 3600
@@ -77,7 +75,13 @@ class Game:
 		minutes = end_time // 60
 		end_time %= 60
 		seconds = end_time
-		print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.2f segundos" % seconds)
+		return hour, minutes, seconds
+
+	def read_solution(self, node, total_nodes):
+		print("Total de nodos abertos: " + str(total_nodes))
+		print("Nível da solução encontrada: " + str(node.level))
+		hour, minutes, seconds = self.format_time()
+		print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.4f segundos" % seconds)
 		print("Caminho para desembaralhar o tabuleiro:")
 		print()
 		stack = []
@@ -98,20 +102,39 @@ class Game:
 		if time.time()-self.start_time >= 3600:
 			print("Total de nodos abertos: " + str(total_nodes))
 			print("Parou no nível e não encontrou solução: " + str(level))
-			hour, minutes, seconds = 0, 0, 0
-			end_time = time.time() - self.start_time
-			hour = end_time // 3600
-			end_time %= 3600
-			minutes = end_time // 60
-			end_time %= 60
-			seconds = end_time
-			print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.2f segundos" % seconds)
+			hour, minutes, seconds = self.format_time()
+			print("Tempo de execução: %d"  %hour ,"horas, %d" %minutes, "minutos e %.4f segundos" % seconds)
 			return False
 		return True
 	
 	def verify_node(self, actual_node):
 		return np.array_equal(actual_node, self.final_board)
 
+	#cria o proximo nivel da arvore a partir do nodo pai
+	def create_next_level_tree(self, node):
+		node_up = self.move_up(node.value.copy())
+		node_down = self.move_down(node.value.copy())
+		node_right = self.move_right(node.value.copy())
+		node_left = self.move_left(node.value.copy())
+		
+		if (not np.array_equal(node_up, node.value)):
+			node.insert_up(node_up, node, node.level+1)
+		
+		if (not np.array_equal(node_down, node.value)):
+			node.insert_down(node_down, node, node.level+1)
+		
+		if (not np.array_equal(node_right, node.value)):
+			node.insert_right(node_right, node, node.level+1)
+		
+		if (not np.array_equal(node_left, node.value)):
+			node.insert_left(node_left, node, node.level+1)
+	
+	#O uso dessa função evita ciclos 
+	def matrix_in_list(self, node, list_nodes):
+		for n in list_nodes:
+			if np.array_equal(node, n):
+				return True
+		return False
 
 	#Busca em profundidade
 	def DFS(self, node, level):
@@ -120,101 +143,105 @@ class Game:
 		visited = [node.value]
 		total_nodes = 1
 
-		def matrix_in_list(node, list_nodes):
-			for n in list_nodes:
-				if np.array_equal(node, n):
-					return True
-			return False
-
 		while to_visit:
 			node = to_visit.pop(0)
 
 			if self.verify_node(node.value):
-
 				return node, total_nodes
 			if not self.acceptable_runtime(total_nodes, node.level):
 				sys.exit()
-			#print(node.value)
-			node_up = self.move_up(node.value.copy())
-			node_down = self.move_down(node.value.copy())
-			node_right = self.move_right(node.value.copy())
-			node_left = self.move_left(node.value.copy())
-			
-			if (not np.array_equal(node_up, node.value) and not matrix_in_list(node_up, visited)):
-			#	print("UP")
-				node.insert_up(node_up, node, node.level+1)
-				to_visit.insert(0, node.up)
-				visited.append(node_up)
-				total_nodes += 1
-			
-			if (not np.array_equal(node_down, node.value) and not matrix_in_list(node_down, visited)):
-			#	print("DOWN")
-				node.insert_down(node_down, node, node.level+1)
-				to_visit.insert(0, node.down)
-				visited.append(node_down)
-				total_nodes += 1
-			
-			if (not np.array_equal(node_right, node.value) and not matrix_in_list(node_right, visited)):
-			#	print("RIGHT")
-				node.insert_right(node_right, node, node.level+1)
-				to_visit.insert(0, node.right)
-				visited.append(node_right)
-				total_nodes += 1
-			
-			if (not np.array_equal(node_left, node.value) and not matrix_in_list(node_left, visited)):
-			#	print("LEFT")
-				node.insert_left(node_left, node, node.level+1)
-				to_visit.insert(0, node.left)
-				visited.append(node_left)
-				total_nodes += 1
 
+			self.create_next_level_tree(node)
+			
+			if (node.up != None and not self.matrix_in_list(node.up.value, visited)):
+				to_visit.insert(0, node.up)
+				visited.insert(0,node.up.value)
+				total_nodes += 1
+			
+			if (node.down != None and not self.matrix_in_list(node.down.value, visited)):
+				to_visit.insert(0, node.down)
+				visited.insert(0,node.down.value)
+				total_nodes += 1
+			
+			if (node.right != None and not self.matrix_in_list(node.right.value, visited)):
+				to_visit.insert(0, node.right)
+				visited.insert(0,node.right.value)
+				total_nodes += 1
+			
+			if (node.left != None and not self.matrix_in_list(node.left.value, visited)):
+				to_visit.insert(0, node.left)
+				visited.insert(0,node.left.value)
+				total_nodes += 1
+	
 	#Busca em aprofundamento iterativo
-	def IDS(self, node_root, level, total = 1):
+	def IDS(self, node_root, level):
 		
 		to_visit = [node_root]
-		total_nodes = total
-		while to_visit:
-			node = to_visit.pop(0)
-		
-			if self.verify_node(node.value):
-				return node, total_nodes
-			if not self.acceptable_runtime(total_nodes, node.level):
-				sys.exit()
+		total_nodes = 1
+		visited = []
 
-			if node.level < level: 
-				node_up = self.move_up(node.value.copy())
-				node_down = self.move_down(node.value.copy())
-				node_right = self.move_right(node.value.copy())
-				node_left = self.move_left(node.value.copy())
+
+		def clean_visited(visited):
+			for node in visited:
+				del node
+
+		def clean_sibling_branch(node_sibling):
+			nodes = [node_sibling]
+			for n in nodes:
+				if node_sibling.up != None:
+					nodes.append(node.up)
+				if node_sibling.down != None:
+					nodes.append(node.down)
+				if node_sibling.right != None:
+					nodes.append(node.right)
+				if node_sibling.left != None:
+					nodes.append(node.left)
+				del n
+
+		while True:
+			print("Iteracao: " + str(level))
+			ant = None
+			while to_visit:
+				node = to_visit.pop(0)
+				visited.append(node)
 				
-				if (not np.array_equal(node_up, node.value)):
-					node.insert_up(node_up, node, node.level+1)
-					to_visit.insert(0, node.up)
-					total_nodes += 1
+				if self.verify_node(node.value):
+					return node, total_nodes
+				if not self.acceptable_runtime(total_nodes, node.level):
+					sys.exit()
 				
-				if (not np.array_equal(node_down, node.value)):
-					node.insert_down(node_down, node, node.level+1)
-					to_visit.insert(0, node.down)
-					total_nodes += 1
-				
-				if (not np.array_equal(node_right, node.value)):
-					node.insert_right(node_right, node, node.level+1)
-					to_visit.insert(0, node.right)
-					total_nodes += 1
-				
-				if (not np.array_equal(node_left, node.value)):
-					node.insert_left(node_left, node, node.level+1)
-					to_visit.insert(0, node.left)
-					total_nodes += 1
+				if ant != None and ant.level == node.level:
+					clean_sibling_branch(ant)
+
+				if node.level < level:
+					self.create_next_level_tree(node)
+					if (node.up != None):
+						to_visit.insert(0, node.up)
+						total_nodes += 1
+					
+					if (node.down != None):
+						to_visit.insert(0, node.down)
+						total_nodes += 1
+						
+					if (node.right != None):
+						to_visit.insert(0, node.right)
+						total_nodes += 1
+					 
+					if (node.left != None):
+						to_visit.insert(0, node.left)
+						total_nodes += 1
+				ant = node
+			clean_visited(visited)
+			to_visit = [node_root]
+			level +=1
+			visited = [node_root]
 	
-		return self.IDS(node_root, level + 1, total_nodes)
-
-
 	#Busca em amplitude
 	def BFS(self, node, level):
 
 		to_visit = [node]
 		total_nodes = 1
+		visited = [node.value]
 
 		while to_visit:
 			node = to_visit.pop(0)
@@ -224,28 +251,28 @@ class Game:
 			if not self.acceptable_runtime(total_nodes, node.level):
 				sys.exit()
 			
-			node_up = self.move_up(node.value.copy())
-			node_down = self.move_down(node.value.copy())
-			node_right = self.move_right(node.value.copy())
-			node_left = self.move_left(node.value.copy())
-			
-			if (not np.array_equal(node_up, node.value)):
-				node.insert_up(node_up, node, node.level+1)
+			self.create_next_level_tree(node)
+
+			if (node.up != None and not self.matrix_in_list(node.up.value, visited)):
 				to_visit.append(node.up)
 				total_nodes += 1
-			if (not np.array_equal(node_down, node.value)):
-				node.insert_down(node_down, node, node.level+1)
+				visited.append(node.up.value)
+			
+			if (node.down != None and not self.matrix_in_list(node.down.value, visited)):
 				to_visit.append(node.down)
 				total_nodes += 1
-			if (not np.array_equal(node_right, node.value)):
-				node.insert_right(node_right, node, node.level+1)
+				visited.append(node.down.value)
+			
+			if (node.right != None and not self.matrix_in_list(node.right.value, visited)):
 				to_visit.append(node.right)
 				total_nodes += 1
-			if (not np.array_equal(node_left, node.value)):
-				node.insert_left(node_left, node, node.level+1)
+				visited.append(node.right.value)
+
+			if (node.left != None and not self.matrix_in_list(node.left.value, visited)):
 				to_visit.append(node.left)
 				total_nodes += 1
-	
+				visited.append(node.left.value)
+
 			
 	#Heuritica que indica quantas peças estão fora de lugar
 	def out_of_place_heuristic(self, m):
@@ -293,36 +320,28 @@ class Game:
 			
 			#Esse if verifica se os nodos já estão abertos
 			if node.up == None and node.down == None and node.right == None and node.left == None: 
-				node_up = self.move_up(node.value.copy())
-				node_down = self.move_down(node.value.copy())
-				node_right = self.move_right(node.value.copy())
-				node_left = self.move_left(node.value.copy())
-				
-				if (not np.array_equal(node_up, node.value)):
-					node.insert_up(node_up, node, node.level+1)
+				self.create_next_level_tree(node)
+
+				if (node.up != None):
 					h = self.calculate_heuristic(node.up, heuristic)
 					open_nodes.append([node.up, node.level+1 + h])
 					total_nodes += 1
 				
-				if (not np.array_equal(node_down, node.value)):
-					node.insert_down(node_down, node, node.level+1)
+				if (node.down != None):
 					h = self.calculate_heuristic(node.down, heuristic)
 					open_nodes.append([node.down, node.level+1 + h])
 					total_nodes += 1
 				
-				if (not np.array_equal(node_right, node.value)):
-					node.insert_right(node_right, node, node.level+1)
+				if (node.right != None):
 					h = self.calculate_heuristic(node.right, heuristic)
 					open_nodes.append([node.right, node.level+1 + h])
 					total_nodes += 1
 				
-				if (not np.array_equal(node_left, node.value)):
-					node.insert_left(node_left, node, node.level+1)
+				if (node.left != None):
 					h = self.calculate_heuristic(node.left, heuristic)
 					open_nodes.append([node.left, node.level+1 + h])
 					total_nodes += 1
 				
-			
 
 if __name__ == '__main__':
 	#Le a dimensao (nxn) do jogo
