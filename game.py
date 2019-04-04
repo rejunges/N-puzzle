@@ -129,18 +129,12 @@ class Game:
 		if (not np.array_equal(node_left, node.value)):
 			node.insert_left(node_left, node, node.level+1)
 	
-	#O uso dessa função evita ciclos 
-	def matrix_in_list(self, node, list_nodes):
-		for n in list_nodes:
-			if np.array_equal(node, n):
-				return True
-		return False
 
 	#Busca em profundidade
 	def DFS(self, node, level):
 		
 		to_visit = [node]
-		visited = [node.value]
+		visited = [node.value.tolist()]
 		total_nodes = 1
 
 		while to_visit:
@@ -154,9 +148,9 @@ class Game:
 			self.create_next_level_tree(node)
 			nodes = [node.up, node.down, node.right, node.left]
 			for n in nodes:
-				if (n != None and not self.matrix_in_list(n.value, visited)):
+				if (n != None and n.value.tolist() not in visited):
 					to_visit.insert(0, n)
-					visited.insert(0, n.value)
+					visited.insert(0, n.value.tolist())
 					total_nodes += 1
 	
 	#Busca em aprofundamento iterativo
@@ -165,7 +159,7 @@ class Game:
 		to_visit = [node_root]
 		total_nodes = 1
 		visited = {}
-		c =[]
+		visited_list =[]
 
 		def clean_visited(visited):
 			for node in visited:
@@ -175,9 +169,9 @@ class Game:
 			v_items = visited.copy()
 			for key, value in v_items.items():
 				if key >= level:
+					del visited[key]
 					for nodes in value:
 						del nodes
-					visited.pop(key, None)
 			return visited
 
 		while True:
@@ -185,7 +179,8 @@ class Game:
 			
 			while to_visit:
 				node = to_visit.pop(0)
-				c.append(node.value)
+				visited_list.append(node.value.tolist())
+				
 				visited = clean_sibling_branch(visited, node.level)
 				if node.level not in visited:
 					visited[node.level] = []
@@ -200,25 +195,27 @@ class Game:
 					self.create_next_level_tree(node)
 					nodes = [node.up, node.down, node.right, node.left]
 					for n in nodes:
-						if (n != None):
+						if (n != None and n.value.tolist() not in visited_list):
 							to_visit.insert(0, n)
 							total_nodes += 1
+							
 
 			v = []
 			for key, nodes in visited.items():
 				v.extend(nodes)
+
 			clean_visited(v)
 			to_visit = [node_root]
 			level +=1
 			visited = {}
-			c=[]
+			visited_list=[]
 	
 	#Busca em amplitude
 	def BFS(self, node, level):
 
 		to_visit = [node]
 		total_nodes = 1
-		visited = [node.value]
+		visited = [node.value.tolist()]
 
 		while to_visit:
 			node = to_visit.pop(0)
@@ -231,10 +228,10 @@ class Game:
 			self.create_next_level_tree(node)
 			nodes = [node.up, node.down, node.right, node.left]
 			for n in nodes:
-				if (n != None and not self.matrix_in_list(n.value, visited)):
+				if (n != None and n.value.tolist() not in visited):
 					to_visit.append(n)
 					total_nodes += 1
-					visited.append(n.value)
+					visited.append(n.value.tolist())
 			
 	#Heuritica que indica quantas peças estão fora de lugar
 	def out_of_place_heuristic(self, m):
