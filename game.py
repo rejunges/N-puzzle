@@ -152,26 +152,12 @@ class Game:
 				sys.exit()
 
 			self.create_next_level_tree(node)
-			
-			if (node.up != None and not self.matrix_in_list(node.up.value, visited)):
-				to_visit.insert(0, node.up)
-				visited.insert(0,node.up.value)
-				total_nodes += 1
-			
-			if (node.down != None and not self.matrix_in_list(node.down.value, visited)):
-				to_visit.insert(0, node.down)
-				visited.insert(0,node.down.value)
-				total_nodes += 1
-			
-			if (node.right != None and not self.matrix_in_list(node.right.value, visited)):
-				to_visit.insert(0, node.right)
-				visited.insert(0,node.right.value)
-				total_nodes += 1
-			
-			if (node.left != None and not self.matrix_in_list(node.left.value, visited)):
-				to_visit.insert(0, node.left)
-				visited.insert(0,node.left.value)
-				total_nodes += 1
+			nodes = [node.up, node.down, node.right, node.left]
+			for n in nodes:
+				if (n != None and not self.matrix_in_list(n.value, visited)):
+					to_visit.insert(0, n)
+					visited.insert(0, n.value)
+					total_nodes += 1
 	
 	#Busca em aprofundamento iterativo
 	def IDS(self, node_root, level):
@@ -212,21 +198,12 @@ class Game:
 				
 				if node.level < level:
 					self.create_next_level_tree(node)
-					if (node.up != None and not self.matrix_in_list(node.up.value, c)):
-						to_visit.insert(0, node.up)
-						total_nodes += 1
+					nodes = [node.up, node.down, node.right, node.left]
+					for n in nodes:
+						if (n != None):
+							to_visit.insert(0, n)
+							total_nodes += 1
 
-					if (node.down != None and not self.matrix_in_list(node.down.value, c)):
-						to_visit.insert(0, node.down)
-						total_nodes += 1
-
-					if (node.right != None and not self.matrix_in_list(node.right.value, c)):
-						to_visit.insert(0, node.right)
-						total_nodes += 1
-
-					if (node.left != None and not self.matrix_in_list(node.left.value, c)):
-						to_visit.insert(0, node.left)
-						total_nodes += 1
 			v = []
 			for key, nodes in visited.items():
 				v.extend(nodes)
@@ -252,27 +229,12 @@ class Game:
 				sys.exit()
 			
 			self.create_next_level_tree(node)
-
-			if (node.up != None and not self.matrix_in_list(node.up.value, visited)):
-				to_visit.append(node.up)
-				total_nodes += 1
-				visited.append(node.up.value)
-			
-			if (node.down != None and not self.matrix_in_list(node.down.value, visited)):
-				to_visit.append(node.down)
-				total_nodes += 1
-				visited.append(node.down.value)
-			
-			if (node.right != None and not self.matrix_in_list(node.right.value, visited)):
-				to_visit.append(node.right)
-				total_nodes += 1
-				visited.append(node.right.value)
-
-			if (node.left != None and not self.matrix_in_list(node.left.value, visited)):
-				to_visit.append(node.left)
-				total_nodes += 1
-				visited.append(node.left.value)
-
+			nodes = [node.up, node.down, node.right, node.left]
+			for n in nodes:
+				if (n != None and not self.matrix_in_list(n.value, visited)):
+					to_visit.append(n)
+					total_nodes += 1
+					visited.append(n.value)
 			
 	#Heuritica que indica quantas peças estão fora de lugar
 	def out_of_place_heuristic(self, m):
@@ -321,26 +283,12 @@ class Game:
 			#Esse if verifica se os nodos já estão abertos
 			if node.up == None and node.down == None and node.right == None and node.left == None: 
 				self.create_next_level_tree(node)
-
-				if (node.up != None):
-					h = self.calculate_heuristic(node.up, heuristic)
-					open_nodes.append([node.up, node.level+1 + h])
-					total_nodes += 1
-				
-				if (node.down != None):
-					h = self.calculate_heuristic(node.down, heuristic)
-					open_nodes.append([node.down, node.level+1 + h])
-					total_nodes += 1
-				
-				if (node.right != None):
-					h = self.calculate_heuristic(node.right, heuristic)
-					open_nodes.append([node.right, node.level+1 + h])
-					total_nodes += 1
-				
-				if (node.left != None):
-					h = self.calculate_heuristic(node.left, heuristic)
-					open_nodes.append([node.left, node.level+1 + h])
-					total_nodes += 1
+				nodes = [node.up, node.down, node.right, node.left]
+				for n in nodes:
+					if (n != None):
+						h = self.calculate_heuristic(n, heuristic)
+						open_nodes.append([n, node.level+1 + h])
+						total_nodes += 1
 				
 
 if __name__ == '__main__':
