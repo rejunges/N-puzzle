@@ -134,11 +134,12 @@ class Game:
 	def DFS(self, node, level):
 		
 		to_visit = [node]
-		visited = [node.value.tolist()]
+		visited = []
 		total_nodes = 1
 
 		while to_visit:
 			node = to_visit.pop(0)
+			visited.append(node.value.tolist())
 
 			if self.verify_node(node.value):
 				return node, total_nodes
@@ -150,7 +151,6 @@ class Game:
 			for n in nodes:
 				if (n != None and n.value.tolist() not in visited):
 					to_visit.insert(0, n)
-					visited.append(n.value.tolist())
 					total_nodes += 1
 	
 	#Busca em aprofundamento iterativo
@@ -161,7 +161,6 @@ class Game:
 		visited = {}
 		visited_nodes =[] 
 		visited_level = [] 
-		tam = self.dimension*self.dimension
 
 		def clean_visited(visited):
 			for node in visited:
@@ -281,6 +280,7 @@ class Game:
 			open_nodes = sorted(open_nodes, key=operator.itemgetter(1)) #order by f_score
 			node, f_score = open_nodes.pop(0) 
 			visited.append(node.value.tolist())
+
 			if self.verify_node(node.value):
 				return node, total_nodes
 			if not self.acceptable_runtime(total_nodes, node.level):
