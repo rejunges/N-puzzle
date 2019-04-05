@@ -189,7 +189,7 @@ class Game:
 				
 				if self.verify_node(node.value):
 					return node, total_nodes
-				if not self.acceptable_runtime(total_nodes, node.level):
+				if not self.acceptable_runtime(total_nodes, level):
 					sys.exit()
 				
 				if node.level < level:
@@ -276,10 +276,11 @@ class Game:
 
 		open_nodes = [[node, node.level + self.calculate_heuristic(node, heuristic)]]
 		total_nodes = 1
+		visited = []
 		while open_nodes:
 			open_nodes = sorted(open_nodes, key=operator.itemgetter(1)) #order by f_score
 			node, f_score = open_nodes.pop(0) 
-			
+			visited.append(node.value.tolist())
 			if self.verify_node(node.value):
 				return node, total_nodes
 			if not self.acceptable_runtime(total_nodes, node.level):
@@ -290,7 +291,7 @@ class Game:
 				self.create_next_level_tree(node)
 				nodes = [node.up, node.down, node.right, node.left]
 				for n in nodes:
-					if (n != None):
+					if (n != None and n.value.tolist() not in visited):
 						h = self.calculate_heuristic(n, heuristic)
 						open_nodes.append([n, node.level+1 + h])
 						total_nodes += 1
