@@ -150,7 +150,7 @@ class Game:
 			for n in nodes:
 				if (n != None and n.value.tolist() not in visited):
 					to_visit.insert(0, n)
-					visited.insert(0, n.value.tolist())
+					visited.append(n.value.tolist())
 					total_nodes += 1
 	
 	#Busca em aprofundamento iterativo
@@ -159,7 +159,9 @@ class Game:
 		to_visit = [node_root]
 		total_nodes = 1
 		visited = {}
-		visited_list =[]
+		visited_nodes =[] 
+		visited_level = [] 
+		tam = self.dimension*self.dimension
 
 		def clean_visited(visited):
 			for node in visited:
@@ -175,11 +177,10 @@ class Game:
 			return visited
 
 		while True:
-			print("Iteracao: " + str(level))
-			
 			while to_visit:
 				node = to_visit.pop(0)
-				visited_list.append(node.value.tolist())
+				visited_nodes.append(node.value.tolist())
+				visited_level.append(node.level)
 				
 				visited = clean_sibling_branch(visited, node.level)
 				if node.level not in visited:
@@ -195,10 +196,16 @@ class Game:
 					self.create_next_level_tree(node)
 					nodes = [node.up, node.down, node.right, node.left]
 					for n in nodes:
-						if (n != None and n.value.tolist() not in visited_list):
-							to_visit.insert(0, n)
-							total_nodes += 1
-							
+						if (n != None):
+							if n.value.tolist() in visited_nodes:
+								index_node = visited_nodes.index(n.value.tolist())
+								level_node = visited_level[index_node]
+								if level_node > n.level:
+									to_visit.insert(0,n)
+									total_nodes += 1
+							else:
+								to_visit.insert(0,n)
+								total_nodes += 1
 
 			v = []
 			for key, nodes in visited.items():
@@ -208,7 +215,8 @@ class Game:
 			to_visit = [node_root]
 			level +=1
 			visited = {}
-			visited_list=[]
+			visited_nodes=[]
+			visited_level=[]
 	
 	#Busca em amplitude
 	def BFS(self, node, level):
