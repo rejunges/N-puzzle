@@ -1,0 +1,776 @@
+BFS - Busca em amplitude
+Total de nodos abertos: 535
+Nível da solução encontrada: 6
+Tempo de execução: 0 horas, 0 minutos e 0.0486 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [14  0 15 12]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [ 0 14 15 12]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 0  9 10 11]
+ [13 14 15 12]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 10 11]
+ [13 14 15 12]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 11]
+ [13 14 15 12]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11  0]
+ [13 14 15 12]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+BFS - Busca em amplitude
+Total de nodos abertos: 7210
+Nível da solução encontrada: 10
+Tempo de execução: 0 horas, 0 minutos e 2.5311 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 12 15  8]
+ [13 10 14 11]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12 15  0]
+ [13 10 14 11]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12  0 15]
+ [13 10 14 11]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 12 15]
+ [13 10 14 11]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13  0 14 11]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14  0 11]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14 11  0]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12  0]
+ [13 14 11 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 12]
+ [13 14 11 15]]
+
+Passo 9:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 10:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+BFS - Busca em amplitude
+Total de nodos abertos: 1498
+Nível da solução encontrada: 8
+Tempo de execução: 0 horas, 0 minutos e 0.1730 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  0  4]
+ [ 5  6  3  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  0  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11 12  0]
+ [13 10 14 15]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11  0 12]
+ [13 10 14 15]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 11 12]
+ [13 10 14 15]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13  0 14 15]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+DFS - Busca em profundidade
+Total de nodos abertos: 15
+Nível da solução encontrada: 6
+Tempo de execução: 0 horas, 0 minutos e 0.0009 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [14  0 15 12]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [ 0 14 15 12]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 0  9 10 11]
+ [13 14 15 12]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 10 11]
+ [13 14 15 12]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 11]
+ [13 14 15 12]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11  0]
+ [13 14 15 12]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+DFS - Busca em profundidade
+Total de nodos abertos: 278766
+Parou no nível e não encontrou solução: 139201
+Tempo de execução: 1 horas, 0 minutos e 0.0568 segundos
+DFS - Busca em profundidade
+Total de nodos abertos: 277246
+Parou no nível e não encontrou solução: 138459
+Tempo de execução: 1 horas, 0 minutos e 0.0358 segundos
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 226
+Nível da solução encontrada: 6
+Tempo de execução: 0 horas, 0 minutos e 0.0170 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [14  0 15 12]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [ 0 14 15 12]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 0  9 10 11]
+ [13 14 15 12]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 10 11]
+ [13 14 15 12]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 11]
+ [13 14 15 12]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11  0]
+ [13 14 15 12]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 7786
+Nível da solução encontrada: 10
+Tempo de execução: 0 horas, 0 minutos e 1.7541 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 12 15  8]
+ [13 10 14 11]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12 15  0]
+ [13 10 14 11]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12  0 15]
+ [13 10 14 11]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 12 15]
+ [13 10 14 11]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13  0 14 11]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14  0 11]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14 11  0]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12  0]
+ [13 14 11 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 12]
+ [13 14 11 15]]
+
+Passo 9:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 10:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 1818
+Nível da solução encontrada: 8
+Tempo de execução: 0 horas, 0 minutos e 0.1879 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  0  4]
+ [ 5  6  3  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  0  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11 12  0]
+ [13 10 14 15]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11  0 12]
+ [13 10 14 15]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 11 12]
+ [13 10 14 15]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13  0 14 15]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 15
+Nível da solução encontrada: 6
+Tempo de execução: 0 horas, 0 minutos e 0.0010 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [14  0 15 12]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [ 0 14 15 12]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 0  9 10 11]
+ [13 14 15 12]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 10 11]
+ [13 14 15 12]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 11]
+ [13 14 15 12]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11  0]
+ [13 14 15 12]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 98
+Nível da solução encontrada: 10
+Tempo de execução: 0 horas, 0 minutos e 0.0073 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 12 15  8]
+ [13 10 14 11]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12 15  0]
+ [13 10 14 11]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12  0 15]
+ [13 10 14 11]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 12 15]
+ [13 10 14 11]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13  0 14 11]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14  0 11]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14 11  0]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12  0]
+ [13 14 11 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 12]
+ [13 14 11 15]]
+
+Passo 9:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 10:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 22
+Nível da solução encontrada: 8
+Tempo de execução: 0 horas, 0 minutos e 0.0015 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  0  4]
+ [ 5  6  3  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  0  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11 12  0]
+ [13 10 14 15]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11  0 12]
+ [13 10 14 15]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 11 12]
+ [13 10 14 15]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13  0 14 15]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 15
+Nível da solução encontrada: 6
+Tempo de execução: 0 horas, 0 minutos e 0.0043 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [14  0 15 12]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [13  9 10 11]
+ [ 0 14 15 12]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 0  9 10 11]
+ [13 14 15 12]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 10 11]
+ [13 14 15 12]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 11]
+ [13 14 15 12]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11  0]
+ [13 14 15 12]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 41
+Nível da solução encontrada: 10
+Tempo de execução: 0 horas, 0 minutos e 0.0110 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 12 15  8]
+ [13 10 14 11]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12 15  0]
+ [13 10 14 11]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 12  0 15]
+ [13 10 14 11]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 12 15]
+ [13 10 14 11]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13  0 14 11]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14  0 11]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12 15]
+ [13 14 11  0]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 12  0]
+ [13 14 11 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10  0 12]
+ [13 14 11 15]]
+
+Passo 9:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 10:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 21
+Nível da solução encontrada: 8
+Tempo de execução: 0 horas, 0 minutos e 0.0057 segundos
+Caminho para desembaralhar o tabuleiro:
+
+Passo 0:
+[[ 1  2  0  4]
+ [ 5  6  3  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 1:
+[[ 1  2  3  4]
+ [ 5  6  0  7]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 2:
+[[ 1  2  3  4]
+ [ 5  6  7  0]
+ [ 9 11 12  8]
+ [13 10 14 15]]
+
+Passo 3:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11 12  0]
+ [13 10 14 15]]
+
+Passo 4:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 11  0 12]
+ [13 10 14 15]]
+
+Passo 5:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9  0 11 12]
+ [13 10 14 15]]
+
+Passo 6:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13  0 14 15]]
+
+Passo 7:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14  0 15]]
+
+Passo 8:
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]
+ [13 14 15  0]]
+

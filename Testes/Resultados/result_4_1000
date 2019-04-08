@@ -1,0 +1,60 @@
+BFS - Busca em amplitude
+Total de nodos abertos: 283599
+Parou no nível e não encontrou solução: 16
+Tempo de execução: 1 horas, 0 minutos e 0.0669 segundos
+BFS - Busca em amplitude
+Total de nodos abertos: 284646
+Parou no nível e não encontrou solução: 15
+Tempo de execução: 1 horas, 0 minutos e 0.0299 segundos
+BFS - Busca em amplitude
+Total de nodos abertos: 283822
+Parou no nível e não encontrou solução: 15
+Tempo de execução: 1 horas, 0 minutos e 0.0428 segundos
+DFS - Busca em profundidade
+Total de nodos abertos: 278621
+Parou no nível e não encontrou solução: 139175
+Tempo de execução: 1 horas, 0 minutos e 0.0342 segundos
+DFS - Busca em profundidade
+Total de nodos abertos: 278920
+Parou no nível e não encontrou solução: 139327
+Tempo de execução: 1 horas, 0 minutos e 0.0487 segundos
+DFS - Busca em profundidade
+Total de nodos abertos: 279360
+Parou no nível e não encontrou solução: 139541
+Tempo de execução: 1 horas, 0 minutos e 0.0543 segundos
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 270398
+Parou no nível e não encontrou solução: 13
+Tempo de execução: 1 horas, 0 minutos e 0.0144 segundos
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 291001
+Parou no nível e não encontrou solução: 13
+Tempo de execução: 1 horas, 0 minutos e 0.0125 segundos
+IDS - Busca em aprofundamento iterativo
+Total de nodos abertos: 310371
+Parou no nível e não encontrou solução: 13
+Tempo de execução: 1 horas, 0 minutos e 0.0023 segundos
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 224826
+Parou no nível e não encontrou solução: 14
+Tempo de execução: 1 horas, 0 minutos e 0.0023 segundos
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 225167
+Parou no nível e não encontrou solução: 15
+Tempo de execução: 1 horas, 0 minutos e 0.0504 segundos
+A* - Heurística número de peças fora do lugar
+Total de nodos abertos: 224423
+Parou no nível e não encontrou solução: 16
+Tempo de execução: 1 horas, 0 minutos e 0.0687 segundos
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 205430
+Parou no nível e não encontrou solução: 20
+Tempo de execução: 1 horas, 0 minutos e 0.0723 segundos
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 218753
+Parou no nível e não encontrou solução: 15
+Tempo de execução: 1 horas, 0 minutos e 0.0483 segundos
+A* - Heurística distância de Manhattan
+Total de nodos abertos: 204449
+Parou no nível e não encontrou solução: 20
+Tempo de execução: 1 horas, 0 minutos e 0.0556 segundos
